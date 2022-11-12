@@ -10,3 +10,6 @@ NYT:
 https://www.kaggle.com/datasets/tumanovalexander/nyt-articles-data
 
 created a merged dataset:
+https://www.kaggle.com/datasets/alphadraco/i535-new-dataset
+
+
