@@ -1,6 +1,7 @@
 
 import gensim
 import pickle as pkl
+import numpy as np
 
 
 class Word2Vec():
@@ -21,11 +22,12 @@ class Word2Vec():
         model.build_vocab(lines)
         model.train(lines, total_examples=len(lines), epochs=10)
         self._model = model
-        return self._model
+        return self
 
     def save(self, path):
         assert self._model is not None, 'Model not fitted yet'
         self._model.save(path)
+        return self
 
     def load(self, path):
         try:
@@ -34,6 +36,7 @@ class Word2Vec():
             print("There was an error loading the model. Trying to load kv file instead!")
             self.in_vecs = True
             self._model = gensim.models.KeyedVectors.load(path)
+        return self
 
     def transform(self, words, WV=None):
         assert isinstance(words, list), 'words should be a list'
@@ -42,8 +45,12 @@ class Word2Vec():
                 WV = self._model
             else:
                 WV = self._model.wv
-        words = [w for w in words if w in WV]
-        return WV[words]
+        embs = np.zeros((len(words), self.dim), dtype=np.float32)
+        for i, word in enumerate(words):
+            if word in WV:
+                embs[i] = WV[word]
+
+        return embs
 
 
 

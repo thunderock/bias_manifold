@@ -2,6 +2,7 @@
 import os
 import numpy as np
 import pandas as pd
+import pickle as pkl
 
 
 class GloveWrapper(object):
@@ -66,7 +67,7 @@ class Glove():
         # creating shuffle file
         os.system(f'./scripts/build/shuffle -memory 6 -verbose 2 -temp-file {temp_root}temp_shuffle.shuf -seed 1 < {temp_root}temp.cooccur > {temp_root}final.shuf')
         # creating glove file
-        os.system(f'./scripts/build/glove -save-file {temp_root}glove_trained -threads {workers} -input-file {temp_root}final.shuf -eta {self.eta} -iter 5 -checkpoint-every 0 -vector-size {self.dim} -binary 1 -vocab-file {temp_root}temp.vocab -verbose 2 -seed 1')
+        os.system(f'./scripts/build/glove -save-file {temp_root}glove_trained -threads {workers} -input-file {temp_root}final.shuf -eta {self.eta} -iter 20 -checkpoint-every 0 -vector-size {self.dim} -binary 1 -vocab-file {temp_root}temp.vocab -verbose 2 -seed 1')
 
         vocab_file = temp_root + 'temp.vocab'
         embedding_file = temp_root + 'glove_trained.bin'
@@ -80,6 +81,18 @@ class Glove():
         self._model.W, _, _, _ = self.load_bin_vectors(embedding_file, V)
         return self
 
+    def save(self, path):
+        # create the directory if it doesn't exist
+        if not os.path.exists(path):
+            os.makedirs(path)
+        np.save(path + 'glove.npy', self._model.W)
+        pkl.dump(self._model.vocab, open(path + 'glove_vocab.pkl', 'wb'))
+        return self
+
+    def load(self, path):
+        self._model.W = np.load(path + 'glove.npy')
+        self._model.vocab = pkl.load(open(path + 'glove_vocab.pkl', 'rb'))
+        return self
 
 
 
