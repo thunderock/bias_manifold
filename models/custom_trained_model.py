@@ -6,10 +6,11 @@ class CustomTrainedModel():
     """
     only load model
     """
-    def __init__(self, path, load_method, load_params, dim=100, ):
+    def __init__(self, path, load_method, load_params, dim=300, ):
         self.load_method = load_method
         self.load_params = load_params
-        super().__init__(load=True, path=path, dim=dim)
+        self.dim = dim
+        self.load(path)
 
     def fit(self, iid, dataset, workers=4):
         print("DummyModel: fit")

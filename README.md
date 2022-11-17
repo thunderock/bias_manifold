@@ -13,3 +13,8 @@ created a merged dataset:
 https://www.kaggle.com/datasets/alphadraco/i535-new-dataset
 
 
+TRAINED MODELS
+Trained Google News model:
+https://www.kaggle.com/datasets/leadbest/googlenewsvectorsnegative300
+
+

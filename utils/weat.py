@@ -57,10 +57,10 @@ class WEAT(object):
         :return: WEAT score
         """
 
-        X = self.model.transform(X, self.W)
-        Y = self.model.transform(Y, self.W)
-        A = self.model.transform(A, self.W)
-        B = self.model.transform(B, self.W)
+        X = self.model.transform(X)
+        Y = self.model.transform(Y)
+        A = self.model.transform(A)
+        B = self.model.transform(B)
 
         X, Y = WEAT.__balance_vectors(X, Y)
         A, B = WEAT.__balance_vectors(A, B)
