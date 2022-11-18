@@ -54,20 +54,21 @@ class Glove():
 
         return embs
 
-    def fit(self, lines, workers=4, temp_root='/tmp/'):
+    def fit(self, lines, workers=4, temp_root='/tmp/', glove_path='scripts/'):
         # first write these lines to a file
         df = pd.DataFrame(data=lines, columns=['text'])
         df.to_csv(temp_root + 'temp.txt', index=False, header=False)
-        os.system(f'make -C scripts/')
+        os.system(f'make -C {glove_path} clean')
+        os.system(f'make -C {glove_path}')
         # creating vocab file
-        os.system(f'./scripts/build/vocab_count -min-count {self.min_count} -verbose 2  < {temp_root}temp.txt > {temp_root}temp.vocab')
+        os.system(f'./{glove_path}build/vocab_count -min-count {self.min_count} -verbose 2  < {temp_root}temp.txt > {temp_root}temp.vocab')
         overflow_file = temp_root + 'temp_overflow'
         # creating co-occurence file
-        os.system(f'./scripts/build/cooccur -memory 6 -vocab-file {temp_root}temp.vocab -verbose 2 -window-size {self.window_size} -overflow-file {overflow_file}< {temp_root}temp.txt > {temp_root}temp.cooccur')
+        os.system(f'./{glove_path}build/cooccur -memory 6 -vocab-file {temp_root}temp.vocab -verbose 2 -window-size {self.window_size} -overflow-file {overflow_file}< {temp_root}temp.txt > {temp_root}temp.cooccur')
         # creating shuffle file
-        os.system(f'./scripts/build/shuffle -memory 6 -verbose 2 -temp-file {temp_root}temp_shuffle.shuf -seed 1 < {temp_root}temp.cooccur > {temp_root}final.shuf')
+        os.system(f'./{glove_path}build/shuffle -memory 6 -verbose 2 -temp-file {temp_root}temp_shuffle.shuf -seed 1 < {temp_root}temp.cooccur > {temp_root}final.shuf')
         # creating glove file
-        os.system(f'./scripts/build/glove -save-file {temp_root}glove_trained -threads {workers} -input-file {temp_root}final.shuf -eta {self.eta} -iter 20 -checkpoint-every 0 -vector-size {self.dim} -binary 1 -vocab-file {temp_root}temp.vocab -verbose 2 -seed 1')
+        os.system(f'./{glove_path}build/glove -save-file {temp_root}glove_trained -threads {workers} -input-file {temp_root}final.shuf -eta {self.eta} -iter 20 -checkpoint-every 0 -vector-size {self.dim} -binary 1 -vocab-file {temp_root}temp.vocab -verbose 2 -seed 1')
 
         vocab_file = temp_root + 'temp.vocab'
         embedding_file = temp_root + 'glove_trained.bin'
