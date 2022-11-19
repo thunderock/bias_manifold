@@ -2,6 +2,7 @@
 import gensim
 import pickle as pkl
 import numpy as np
+import os
 
 
 class Word2Vec():
@@ -26,12 +27,14 @@ class Word2Vec():
 
     def save(self, path):
         assert self._model is not None, 'Model not fitted yet'
-        self._model.save(path)
+        if not os.path.exists(path):
+            os.makedirs(path)
+        self._model.save(path + 'word2vec.model')
         return self
 
     def load(self, path):
         try:
-            self._model = gensim.models.Word2Vec.load(path)
+            self._model = gensim.models.Word2Vec.load(path + 'word2vec.model')
         except (pkl.UnpicklingError, AttributeError) as e:
             print("There was an error loading the model. Trying to load kv file instead!")
             self.in_vecs = True
