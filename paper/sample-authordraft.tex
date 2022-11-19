@@ -1,0 +1,96 @@
+\documentclass[sigconf,authordraft]{acmart}
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+\setcopyright{acmcopyright}
+\copyrightyear{2018}
+\acmYear{2018}
+\acmDOI{XXXXXXX.XXXXXXX}
+
+\acmConference[MGMT ACCESS USE BIG DATA]{to enter the correct
+  conference title}{Fall,
+  2022}{Bloomington, IN}
+\begin{document}
+\title{Investigating different Bias Manifolds in Datasets}
+\author{Ashutosh Tiwari}
+\affiliation{%
+  \institution{Center for Complex Networks and Systems Research, Indiana University}
+  \city{Bloomington}
+  \state{Indiana}
+  \country{USA}
+  \postcode{47408}
+}
+\begin{abstract}
+
+Bias is an inseparable part of output models of considerable size. This bias is generally the result of data itself on which model is trained. This bias is tackled in general at three different stages in previous attempts. Some works (example ~\cite{DBLP:journals/corr/BolukbasiCZSK16a}) suggest that probably we should try to fix this bias after the model is trained and then debias the generated model embeddings. There is one more approach to learn models  that are fair (free from accumulated bias in dataset). This requires having two "unfair" models and then training a new model in presence of an adversercial setting~\cite{kenna_using_2021}. However we think that all these methods are baidead at best, because of these reasons \begin{itemize}
+    \item These limit usability and scope of a dataset and set of modeling techniques that can be applied to same. Because both of these rely on first training the model, these are methods are not generic enough both to be able to train any model on the dataset.
+    \item These are very inefficient in terms of computing needs because first they need to train the model and then remove bias from embeddings/model. 
+    
+\end{itemize} 
+
+Therefore a third method is to rather remove biases from the dataset itself ~\cite{ravfogel_null_2020}. In this project our aim is to figure out the structure of different kinds of biases in datasets and that will hopefull help us figure out different metrics and methods to remove those from the dataset.
+
+\end{abstract}
+
+\keywords{Graph Embeddings, Dataset Creation, Learning Fairness, Measuring Bias}
+\maketitle
+
+\section{Introduction}
+
+As part of this project, I will be training different simple models (Glove, Word2vec) models on different datasets and then will try to see how the structure of bias evolves in each of those cases. 
+Existing work. I did some work on this during summer break. I am listing those items below.
+\begin{itemize}
+    \item I did this analysis which can be reviewed here in this \href{https://www.kaggle.com/code/alphadraco/nyt-analysis-10-years}{Kaggle Notebook}. However this only does same on just that on one dataset (\href{https://www.kaggle.com/datasets/tumanovalexander/nyt-articles-data}{New York Times}) and just gender bias for which evaluation dataset is part of ~\cite{garg_word_2018}.
+    \item I also implemented python version for ~\cite{brunet_understanding_2019} using this \href{https://github.com/mebrunet/understanding-bias}{official repository} to calculate bias gradient for a document given a word2vec model and cooccurance matrix of same. Metric used by this paper is based on WEAT (Word Embedding Association Test) which was introduced in ~\cite{caliskan_semantics_2017}. This uses the evaluation dataset I found here in this \href{https://github.com/chadaeun/weat_replication/tree/master/weat}{github repository}. 
+\end{itemize}  
+
+Keeping in mind structure and learning outcomes of this course below are the deliverables I could come up with. I might use these above implementations (how?, not sure yet) 
+\begin{itemize}
+    \item All implement
+\end{itemize}
+
+
+
+
+
+\section{Method}
+
+
+
+\section{Experiments}
+
+
+\subsection{Datasets}
+
+% We use 4 datasets in this work. There is small pokec dataset which is created from set of nodes in pokec dataset where degree is more than $45$. All of these networks are treated as undirected networks.
+
+% \begin{table}[h]
+%   \caption{Datasets}
+%   \label{table:datasets}
+%   \begin{tabular}{ccl}
+%     \toprule
+%     NAME & \#  NODES & \# EDGES\\
+%     \midrule
+%     Pokec       & $1632803$ & $22301964$ \\
+%     Small Pokec & $406898$ & $11627007$  \\
+% Airport & $2898$ & $15564$  \\
+% Polbook         &$105$&$441$  \\
+% Polblog         & $1224$ & $16715$  \\\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+
+\section{Conclusion}
+
+
+
+\begin{acks}
+\end{acks}
+
+\bibliographystyle{alpha}
+\bibliography{sample-base}
+
+\appendix
+\end{document}
+\endinput
