@@ -1,30 +1,41 @@
-\documentclass[sigconf,authordraft]{acmart}
-\AtBeginDocument{%
-  \providecommand\BibTeX{{%
-    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+%! Author = ashutosh
+%! Date = 4/20/22
 
-\setcopyright{acmcopyright}
-\copyrightyear{2018}
-\acmYear{2018}
-\acmDOI{XXXXXXX.XXXXXXX}
+\documentclass[english]{sobraep}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=green,
+    linkcolor=blue,
+    filecolor=cyan,
+    urlcolor=magenta,
+    }
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{listings}
 
-\acmConference[MGMT ACCESS USE BIG DATA]{to enter the correct
-  conference title}{Fall,
-  2022}{Bloomington, IN}
-\begin{document}
-\title{Investigating different Bias Manifolds in Datasets}
-\author{Ashutosh Tiwari}
-\affiliation{%
-  \institution{Center for Complex Networks and Systems Research, Indiana University}
-  \city{Bloomington}
-  \state{Indiana}
-  \country{USA}
-  \postcode{47408}
+
+\title{Investigating Structure of Bias Manifold and Bias Evolution over years}
+
+
+\author{Ashutosh Tiwari\\
+	\normalsize ashutiwa@iu.edu
 }
 
-
-\keywords{Graph Embeddings, Dataset Creation, Learning Fairness, Measuring Bias}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Presented as a project for  MGMT ACCESS USE BIG DATA(FALL 2022)}
+\rfoot{Page \thepage}
+\begin{document}
 \maketitle
+
+
 
 \section{Background}
 
@@ -35,6 +46,11 @@ Bias is an inseparable part of output models of considerable size. This bias is 
 \end{itemize}
 
 Therefore a third method is to rather remove biases from the dataset itself ~\cite{ravfogel_null_2020}. In this project our aim is to figure out the structure of different kinds of biases in datasets and that will hopefull help us figure out different metrics and methods to remove those from the dataset.
+
+
+
+\noindent \textbf{Keywords.} Graph Embeddings, Dataset Creation, Learning Fairness, Measuring Bias
+
 
 \section{Introduction}
 
@@ -62,6 +78,8 @@ Different models I will be using for this project are listed below:
 \begin{itemize}
     \item Google pretrained word2vec 300 dimensional \href{
 https://www.kaggle.com/datasets/leadbest/googlenewsvectorsnegative300}{model}
+    \item Word2vec (implemented using Gensim)
+    \item Glove (implemented taken from \href{https://github.com/stanfordnlp/GloVe}{here}, however wrapper on top of this C++ code is written in python)
 \end{itemize}
 \section{Results}
 
@@ -75,9 +93,11 @@ https://www.kaggle.com/datasets/leadbest/googlenewsvectorsnegative300}{model}
 \begin{acks}
 \end{acks}
 
+
+
 \bibliographystyle{alpha}
+
 \bibliography{sample-base}
 
-\appendix
 \end{document}
 \endinput
