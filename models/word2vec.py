@@ -19,9 +19,10 @@ class Word2Vec():
     def fit(self, lines, workers=4):
         model = gensim.models.Word2Vec(window=self.window_size, min_count=self.min_count,
                                              workers=workers, vector_size=self.dim)
+        lines = [line.split() for line in lines]
 
         model.build_vocab(lines)
-        model.train(lines, total_examples=len(lines), epochs=10)
+        model.train(lines, total_examples=len(lines), epochs=20)
         self._model = model
         return self
 
