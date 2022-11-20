@@ -1,7 +1,8 @@
 %! Author = ashutosh
 %! Date = 4/20/22
 
-\documentclass[english]{sobraep}
+\documentclass{article}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage[english]{babel}
 \usepackage{float}
 \usepackage{amsmath}
@@ -20,6 +21,9 @@
 \usepackage{fancyhdr}
 \usepackage{listings}
 
+
+
+\def\at#1{{\color{red}\textbf{AT fix this: #1}}\xspace}
 
 \title{Investigating Structure of Bias Manifold and Bias Evolution over years}
 
@@ -58,7 +62,11 @@ As part of this project, I will be training different simple models (Glove, Word
 
 On top of this I will try to evaluate this general assumption in most of the previous works that in general bias manifolds is general. For this purpose I will try to train all these different models and see if I can separate gender bias using different methods used for linear separability. For this I will be using the dataset used by ~\cite{garg_word_2018}.
 
-Also sometime earlier before I took this course I implemented python version for ~\cite{brunet_understanding_2019} using this \href{https://github.com/mebrunet/understanding-bias}{official repository} to calculate bias gradient for a document given a glove model and cooccurance matrix of same. I hope that I will have time to use this to figure out most biased documents in datasets I use for this project. This will help us determine if bias learned by glove models can be verified by human annotators.
+\at{See if we can complete this}
+As part of this project, it was also intended to figure out most biased documents in a dataset. There are in general two different methods of doing this. One is Jack Knife method ~\cite{https://doi.org/10.48550/arxiv.1709.06183} and other is using bias gradients ~\cite{brunet_understanding_2019}. There are pros and cons of both of these methods. On one hand Jackknife takes a lot of time to run but is very general. On the other hand bias gradients for a set of documents is comparatively cheap to calculate but this method can only be used with a Glove model.
+For jackknife method I will try using word2vec and for bias gradients I will try using Glove.
+
+I implemented python version for ~\cite{brunet_understanding_2019} using this \href{https://github.com/mebrunet/understanding-bias}{official repository} to calculate bias gradient for a document given a glove model and cooccurance matrix of same. I hope that I will have time to use this to figure out most biased documents in datasets I use for this project. This will help us determine if bias learned by glove models can be verified by human annotators.
 
 
 
@@ -70,6 +78,7 @@ I first divide the project into two parts. These are listed below:
 \begin{itemize}
     \item \textbf{Part 1:} In this part I will be training different models on different datasets and then will try to see how extend of bias increases or decreases over time.
     \item \textbf{Part 2:} This part to is to verify or see if (gender) bias manifold itself is itself linear or not in nature.
+    \item \textbf{Part 3:} In this part I take a datasets and then try to find most biased documents in that dataset using bias gradient calculation suggested in ~\cite{brunet_understanding_2019}.
 
 \end{itemize}
 
@@ -79,8 +88,34 @@ Different models I will be using for this project are listed below:
     \item Google pretrained word2vec 300 dimensional \href{
 https://www.kaggle.com/datasets/leadbest/googlenewsvectorsnegative300}{model}
     \item Word2vec (implemented using Gensim)
-    \item Glove (implemented taken from \href{https://github.com/stanfordnlp/GloVe}{here}, however wrapper on top of this C++ code is written in python)
+    \item Glove (implemented taken from \href{https://github.com/stanfordnlp/GloVe}{here}, however wrapper on top of this C code is written in python)
 \end{itemize}
+
+Datasets I used for this project are listed below:
+\begin{itemize}
+    \item New York Times (NYT) dataset. Its a collection of 100 years of NYT articles and is available \href{https://www.kaggle.com/datasets/tumanovalexander/nyt-articles-data}{here}. We use this to see how bias manifold evolves over time after creating a merged dataset for every decade. That new dataset is available \href{https://www.kaggle.com/datasets/alphadraco/i535-new-dataset}{here}.
+    \item Second is Wikipedia dataset. It is used to figure out the most biased document in the dataset.
+\end{itemize}
+All the code is avaliable as github repository \href{https://github.com/thunderock/bias_manifold}{here}. Trained model, along with code are available as this kaggle dataset \at{add link here}. All experiments are part of different notebooks which are present in notebooks folder of the github repository.
+
+\subsection{Technological Setup}
+
+\subsubsection{Programming Language and Code Structure}
+
+As programming language I use python. Models folder contains three different models, glove, word2vec and a custom model, which can be used to load any pretrained model.
+
+Glove is which is the official code is written in C. Everytime a Glove model is trained, the binaries are build and then used to generate vocab file, cooccurance matrix and model. Word2vec is implemented using gensim.
+
+\subsubsection{Infrastructure}
+
+Creation of aggregated dataset was done on Kaggle. Because training 10 different models for each decade was time taken, it was done on Carbonate.
+
+Also to calculate bias gradient and score jackknife  of the documents I had to use Carbonate because it takes a lot of time to complete.
+
+\subsubsection{Libraries and Packages}
+
+
+
 \section{Results}
 
 \section{Discussion}

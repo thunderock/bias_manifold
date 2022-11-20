@@ -16,9 +16,11 @@ class Word2Vec():
         if load:
             self.load(path)
 
-    def fit(self, lines, workers=4):
+    def fit(self, lines, workers=4, iid=None):
         model = gensim.models.Word2Vec(window=self.window_size, min_count=self.min_count,
                                              workers=workers, vector_size=self.dim)
+        if iid:
+            lines = lines[:iid] + lines[iid + 1:]
         lines = [line.split() for line in lines]
 
         model.build_vocab(lines)

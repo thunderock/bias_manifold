@@ -54,7 +54,13 @@ class Glove():
 
         return embs
 
-    def fit(self, lines, workers=4, temp_root='/tmp/', glove_path='scripts/'):
+    def fit(self, lines, workers=4, temp_root='/tmp/', glove_path='scripts/', iid=None):
+        if iid:
+            # remove that line
+            lines = lines[:iid] + lines[iid + 1:]
+
+        if not os.path.exists(temp_root):
+            os.mkdir(temp_root)
         # first write these lines to a file
         df = pd.DataFrame(data=lines, columns=['text'])
         df.to_csv(temp_root + 'temp.txt', index=False, header=False)
