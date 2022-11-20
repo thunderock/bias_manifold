@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --time=48:00:00
 #SBATCH --job-name=fairai_bg
-#SBATCH --cpus-per-task=125
+#SBATCH --cpus-per-task=100
 #SBATCH --partition=general
 #SBATCH --mail-type=ALL
-#SBATCH --mem=500G
+#SBATCH --mem=240G
 #SBATCH --mail-user=ashutiwa@iu.edu
 
 
