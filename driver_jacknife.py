@@ -22,12 +22,11 @@ class Args(object):
     dataset = wikidataset.WikiDataset(URL)
     # model.fit(dataset.lines, temp_root='/tmp/glove/')
     outfile = 'jackknife.npy'
-    threads = 40
+    threads = 20
 
 jk = JackKnifeTorch(dataset=Args.dataset, model=Args.model)
 total = len(jk)
 print(total)
-total = 5
 threads = Args.threads
 loops = total // threads + 1
 loader = DataLoader(jk, batch_size=threads, shuffle=False)
