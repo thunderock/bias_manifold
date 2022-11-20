@@ -30,7 +30,6 @@ class Args(object):
 jk = JackKnifeTorch(dataset=Args.dataset, model=Args.model)
 total = len(jk)
 print(total)
-total = 5
 threads = Args.threads
 loops = total // threads + 1
 loader = DataLoader(jk, batch_size=threads, shuffle=False)
