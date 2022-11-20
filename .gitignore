@@ -130,7 +130,6 @@ dmypy.json
 .idea/
 embeddings
 .snakemake
-*.pkl
 *.bin
 *.npy
 *.out
