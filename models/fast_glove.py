@@ -20,10 +20,11 @@ class FastGlove():
         self.X = self.g.load_cooc(cooc_path, V)
         self.weat_words = pkl.load(open(os.path.join(path, '..', "weat/words.pkl"), "rb"))
 
-    def fit(self, iid, dataset, workers=1):
-        document = dataset[iid]
+    def fit(self, iid, lines, workers=1):
+        document = lines[iid]
         deltas = self.g.compute_IF_deltas(document, self.M, self.X, self.weat_words)
-        return self.g.get_new_W(self.M, deltas)
+        self.M.W = self.g.get_new_W(self.M, deltas)
+        return self
 
     def transform(self, words, W=None):
         if W is None:
