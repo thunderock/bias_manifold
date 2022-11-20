@@ -9,4 +9,4 @@
 
 which python;
 
-srun python driver_jackknife.py;
+srun python driver_jacknife.py;
